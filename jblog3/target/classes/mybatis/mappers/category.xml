@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+	<resultMap type="categoryvo" id="categoryResult">
+		<result column="user_id" property="userId"/>
+		<result column="reg_date" property="regDate"/>
+	</resultMap>
+	<insert id="insert" parameterType="categoryvo">
+		<![CDATA[
+			insert into category(no, name, reg_date, description, user_id)
+			values(null, #{name}, now(), #{description}, #{userId})
+		]]>	
+	</insert>
+	<select id="getLastKey" resultType="Long">
+		<![CDATA[
+			select last_insert_id()
+		]]>
+	</select>
+	<select id="getList" parameterType="String" resultType="categoryvo" resultMap="categoryResult">
+		<![CDATA[
+			select no, name, description, user_id
+			from category c
+			where user_id=#{_parameter}
+		]]>
+	</select>
+	<select id="getCategoryNo" parameterType="String" resultType="Long">
+		<![CDATA[
+			select no
+			from category
+			where user_id=#{_parameter}
+			order by no
+			limit 1
+		]]>
+	</select>
+	<select id="get" parameterType="Long" resultType="categoryvo" resultMap="categoryResult">
+		<![CDATA[
+			select no, name, description, user_id
+			from category
+			where no=${_parameter}
+		]]>
+	</select>
+	<delete id="delete" parameterType="Long">
+		<![CDATA[
+			delete from category 
+			where no=${_parameter}
+		]]>
+		
+	</delete>
+	
+</mapper>
