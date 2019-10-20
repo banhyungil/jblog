@@ -157,5 +157,7 @@
 	<modules>
 		<module>jblog3-1</module>
 		<module>jblog4-1</module>
+		<module>jblog5</module>
+		<module>jblog6</module>
 	</modules>
 </project>
